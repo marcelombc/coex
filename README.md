@@ -7,7 +7,7 @@ coex is a library that helps you extract the most common colors of an image.
 
 ## Features
 
-* `AMD` based
+* `AMD` compatible
 
 ## Installation
 
