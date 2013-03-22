@@ -1,10 +1,11 @@
 {
     "predef": [
         "console",
-        "requirejs",
-        "require",
+        "module",
         "define",
+        "self"
         "Image",
+        "window",
         "document"
     ],
 
