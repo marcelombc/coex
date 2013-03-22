@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>coex example</title>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            .grid .thumb {
+                width: 250px;
+                height: 250px;
+                margin-right: 30px;
+                margin-bottom: 30px;
+                background-repeat: no-repeat;
+                float: left;
+            }
+            .grid .thumb-1 {
+                background-image: url("images/thumbs/1.jpg");
+            }
+            .grid .thumb-2 {
+                background-image: url("images/thumbs/2.jpg");
+            }
+            .grid .thumb-3 {
+                background-image: url("images/thumbs/3.jpg");
+            }
+        </style>
+        <!-- data-main attribute tells require.js to load
+             scripts/main.js after require.js loads. -->
+        <script src="../components/requirejs/require.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    </head>
+    <body>
+        <!--<h1>coex example</h1>-->
+        <div class="grid">
+            <div class="thumb thumb-1" data-thumb-url="images/thumbs/1.jpg"></div>
+            <div class="thumb thumb-2" data-thumb-url="images/thumbs/2.jpg"></div>
+            <div class="thumb thumb-3" data-thumb-url="images/thumbs/3.jpg"></div>
+        </div>
+        <script>
+            require(['./example.js?' + (new Date()).getTime()]);
+        </script>
+    </body>
+</html>
