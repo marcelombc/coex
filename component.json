@@ -1,0 +1,11 @@
+{
+  "name": "coex",
+  "version": "0.0.0",
+  "dependencies": {
+    "requirejs": "~2.1.5"
+  },
+  "devDependencies": {
+    "rjs": "~2.1.5",
+    "almond": "~0.2.5"
+  }
+}
