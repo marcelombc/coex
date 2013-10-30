@@ -1,12 +1,16 @@
 // Loader configuration
 requirejs.config({
     baseUrl: '../',
+    paths: {
+        'jquery': '../bower_components/jquery/jquery'
+    },
     urlArgs: (new Date()).getTime()    // Fix cache issues
 });
 
 require([
+    'jquery',
     'lib/coex'
-], function (coex) {
+], function ($, coex) {
     'use strict';
 
     $('.grid .thumb').on('click', function (e) {
