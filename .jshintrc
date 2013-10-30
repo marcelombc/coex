@@ -34,7 +34,6 @@
     "boss": false,
     "debug": false,
     "eqnull": true,
-    "es5": true,
     "esnext": false,
     "evil": false,
     "expr": false,
@@ -54,7 +53,7 @@
     "sub": false,
     "supernew": false,
     "validthis": false,
-    "es5": true,
+    "es5": false,
     "nomen": false,
     "onevar": false,
     "white": true
