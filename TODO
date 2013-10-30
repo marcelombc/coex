@@ -2,3 +2,4 @@ Add tests (mocha)
 Separate example (gh-pages)
 Support an array of url (callback must pass the index)
 Create documentation
+Support cross-domain images.
