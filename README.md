@@ -19,13 +19,12 @@ coex is a library that helps you extract the most common colors of an image.
 ## Usage
 
 ```js
-
 coex.getColors(path/to/image, function (colors) {
     console.log(colors);
 });
-
 ```
 ## Build ##
+
 ```js
 uglifyjs lib/coex.js -o lib/coex.min.js
 ```
