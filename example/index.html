@@ -25,6 +25,16 @@
             .grid .thumb-3 {
                 background-image: url("images/thumbs/3.jpg");
             }
+
+            .visible-spectrum {
+                clear: both;
+            }
+
+            .rgb-color {
+                float: left;
+                width: 10px;
+                height: 10px;
+            }
         </style>
         <!-- data-main attribute tells require.js to load
              scripts/main.js after require.js loads. -->
@@ -37,6 +47,8 @@
             <div class="thumb thumb-2" data-thumb-url="images/thumbs/2.jpg"></div>
             <div class="thumb thumb-3" data-thumb-url="images/thumbs/3.jpg"></div>
         </div>
+
+        <div class="visible-spectrum"></div>
         <script>
             require(['./example.js?' + (new Date()).getTime()]);
         </script>

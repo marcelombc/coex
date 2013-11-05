@@ -10,15 +10,38 @@ requirejs.config({
 require([
     'jquery',
     'lib/coex'
-], function ($, coex) {
+], function ($, Coex) {
     'use strict';
 
+    var url,
+        coex;
+
     $('.grid .thumb').on('click', function (e) {
-        var url = $(e.target).attr('data-thumb-url');
+        url = $(e.target).attr('data-thumb-url');
         if (url) {
-            coex.getColors(url, function (colors) {
-                $('body').css('background', colors[0]);
+            coex = new Coex(url, function (colors) {
+                /*console.warn(coex.rgbToHex(colors[0]));
+                console.warn(colors);
+                var contrastColor = coex.getContrastColor(colors);
+                console.warn(coex.rgbToHex(contrastColor));
+                $('body').css('background', 'rgba(' + colors[0] + ')');*/
+
+                for (var i = 0; i < colors.length; i++) {
+                    $('.visible-spectrum').append('<div class="rgb-color" style="background-color: rgba(' + colors[i] + ')"></div>');
+                }
             });
         }
     });
+
+    /*coex = new Coex('images/thumbs/1.jpg', function (colors) {
+        console.warn(colors);
+    });
+
+    coex = new Coex();
+    coex.getColors('images/thumbs/2.jpg', function (colors) {
+        console.warn(coex.rgbToHex(colors[0]));
+        console.warn(colors);
+        var contrastColor = coex.getContrastColor(colors);
+        console.warn(coex.rgbToHex(contrastColor));
+    });*/
 });
