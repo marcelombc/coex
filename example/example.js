@@ -27,7 +27,8 @@ require([
                 $('body').css('background', 'rgba(' + colors[0] + ')');*/
 
                 for (var i = 0; i < colors.length; i++) {
-                    $('.visible-spectrum').append('<div class="rgb-color" style="background-color: rgba(' + colors[i] + ')"></div>');
+                    console.warn(colors[i][1]);
+                    $('.visible-spectrum').append('<div class="rgb-color" style="background-color: rgba(' + colors[i][0] + ')"></div>');
                 }
             });
         }
