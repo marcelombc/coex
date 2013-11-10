@@ -40,8 +40,6 @@
     "boss": false,
     "debug": false,
     "eqnull": true,
-    "es5": true,
-    "esnext": false,
     "evil": false,
     "expr": false,
     "funcscope": false,
@@ -60,7 +58,6 @@
     "sub": false,
     "supernew": false,
     "validthis": false,
-    "es5": true,
     "nomen": false,
     "onevar": false,
     "white": true
