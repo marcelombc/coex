@@ -9,40 +9,32 @@ requirejs.config({
 
 require([
     'jquery',
-    'lib/coex'
+    'lib/Coex'
 ], function ($, Coex) {
+
     'use strict';
 
     var url,
-        coex;
+        coex,
+        contrastColor;
 
     $('.grid .thumb').on('click', function (e) {
-        url = $(e.target).attr('data-thumb-url');
+        url = $(e.target).attr('data-url');
         if (url) {
             coex = new Coex(url, function (colors) {
-                /*console.warn(coex.rgbToHex(colors[0]));
-                console.warn(colors);
-                var contrastColor = coex.getContrastColor(colors);
-                console.warn(coex.rgbToHex(contrastColor));
-                $('body').css('background', 'rgba(' + colors[0] + ')');*/
-
-                for (var i = 0; i < colors.length; i++) {
-                    console.warn(colors[i][1]);
-                    $('.visible-spectrum').append('<div class="rgb-color" style="background-color: rgba(' + colors[i][0] + ')"></div>');
+                $('.color-palette').find('.color').remove();
+                for (var i = 0, length = colors.length; i < length; i += 1) {
+                    $('.color-palette').append('<div class="color" style="background-color: rgb(' + colors[i].red + ',' + colors[i].green + ',' + colors[i].blue + ')"></div>');
                 }
-            });
+
+                $('body').css('background', 'rgb(' + colors[0].red + ',' + colors[0].green + ',' + colors[0].blue + ')');
+
+                contrastColor = coex.getContrastColor(colors);
+
+                $('.color-palette').css('background', 'rgb(' + contrastColor.red + ',' + contrastColor.green + ',' + contrastColor.blue + ')');
+
+                coex.destroy();
+            }, 8);
         }
     });
-
-    /*coex = new Coex('images/thumbs/1.jpg', function (colors) {
-        console.warn(colors);
-    });
-
-    coex = new Coex();
-    coex.getColors('images/thumbs/2.jpg', function (colors) {
-        console.warn(coex.rgbToHex(colors[0]));
-        console.warn(colors);
-        var contrastColor = coex.getContrastColor(colors);
-        console.warn(coex.rgbToHex(contrastColor));
-    });*/
 });
