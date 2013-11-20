@@ -14,6 +14,8 @@ require([
 
     'use strict';
 
+    Coex.workerUrl = '../lib/worker.js?rand=' + Math.random();
+
     var url,
         coex,
         contrastColor;
