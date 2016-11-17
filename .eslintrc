@@ -16,8 +16,6 @@
         "it": true,
         "expect": true,
         "sinon": true,
-        "Image": true,
-        "Worker": true,
-        "self": true
+        "Image": true
     }
 }

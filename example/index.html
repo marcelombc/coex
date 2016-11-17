@@ -50,13 +50,9 @@
         <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="../lib/coex.js"></script>
         <script>
-            const Coex = coex;
-
-            // Coex.workerUrl = '../src/worker.js?rand=' + Math.random();
-
-            var url,
-                coex,
-                contrastColor;
+            var url;
+            var coex;
+            var contrastColor;
 
             $('.grid .thumb').on('click', function (e) {
                 url = $(e.target).attr('data-url');

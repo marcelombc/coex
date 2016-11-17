@@ -1,4 +1,6 @@
-self.importScripts('VBox.js');
+/* global self:true */
+
+import VBox from './VBox';
 
 function imageDataToRgbData(imageData) {
     const rgbColors = [];
@@ -32,7 +34,7 @@ function getPalette(maxPaletteColors, vBoxes) {
         // Split the vbox data and create new one.
         splitedData = vbox.split();
         for (let j = 0, splitedDataLength = splitedData.length; j < splitedDataLength; j += 1) {
-            vBoxes.push(new self.coex.VBox(splitedData[j]));
+            vBoxes.push(new VBox(splitedData[j]));
         }
 
         // We do not need the first vbox anymore so we destroy it.
@@ -68,7 +70,7 @@ self.onmessage = function (e) {
     const vBoxes = [];
     const rgbData = imageDataToRgbData(imageData);
 
-    vBoxes.push(new self.coex.VBox(rgbData));
+    vBoxes.push(new VBox(rgbData));
     const palette = getPalette(maxPaletteColors, vBoxes);
 
     self.postMessage({

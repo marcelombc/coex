@@ -1,4 +1,5 @@
 import VBox from './VBox';
+import CoexWorker from './worker';
 
 class Coex {
     constructor(url, maxPaletteColors) {
@@ -16,8 +17,8 @@ class Coex {
         this._handleImageLoad = this._handleImageLoad.bind(this);
         this._handleImageAbort = this._handleImageAbort.bind(this);
         this._handleImageError = this._handleImageError.bind(this);
-        this._workerMessageHandler = this._workerMessageHandler.bind(this);
-        this._workerErrorHandler = this._workerErrorHandler.bind(this);
+        this._handleWorkerMessage = this._handleWorkerMessage.bind(this);
+        this._handleWorkerError = this._handleWorkerError.bind(this);
 
         // Set variables
         this._url = url;
@@ -40,8 +41,8 @@ class Coex {
         this._vBoxes = null;
 
         if (Coex._worker) {
-            Coex._worker.removeEventListener('message', this._workerMessageHandler);
-            Coex._worker.removeEventListener('error', this._workerErrorHandler);
+            Coex._worker.removeEventListener('message', this._handleWorkerMessage);
+            Coex._worker.removeEventListener('error', this._handleWorkerError);
             Coex._count -= 1;
             if (Coex._count === 0) {
                 Coex._worker.terminate();
@@ -238,12 +239,12 @@ class Coex {
         this._imageData = this._context.getImageData(0, 0, width, height).data;
 
         // Check if browser support web workers and worker url is defined.
-        if (Coex.workerUrl && typeof Worker !== 'undefined') {
+        if (typeof Worker !== 'undefined') {
             if (!Coex._worker) {
-                Coex._worker = new Worker(Coex.workerUrl);
+                Coex._worker = new CoexWorker();
             }
-            Coex._worker.addEventListener('message', this._workerMessageHandler);
-            Coex._worker.addEventListener('error', this._workerErrorHandler);
+            Coex._worker.addEventListener('message', this._handleWorkerMessage);
+            Coex._worker.addEventListener('error', this._handleWorkerError);
             Coex._worker.postMessage({
                 instanceId: this._instanceId,
                 imageData: this._imageData,
@@ -264,25 +265,21 @@ class Coex {
         this._callback(new Error('An error occurs when loading image.'));
     }
 
-    _workerMessageHandler(e) {
+    _handleWorkerMessage(e) {
         if (this._instanceId === e.data.instanceId) {
             e.stopImmediatePropagation();
-            Coex._worker.removeEventListener('message', this._workerMessageHandler);
-            Coex._worker.removeEventListener('error', this._workerErrorHandler);
+            Coex._worker.removeEventListener('message', this._handleWorkerMessage);
+            Coex._worker.removeEventListener('error', this._handleWorkerError);
             this._callback(null, e.data.palette);
         }
     }
 
-    _workerErrorHandler() {
-        Coex._worker.removeEventListener('message', this._workerMessageHandler);
-        Coex._worker.removeEventListener('error', this._workerErrorHandler);
+    _handleWorkerError() {
+        Coex._worker.removeEventListener('message', this._handleWorkerMessage);
+        Coex._worker.removeEventListener('error', this._handleWorkerError);
         this._workerFallback();
     }
 }
-
-// STATIC PUBLIC VARIABLES
-
-Coex.workerUrl = null;
 
 // STATIC PROTECTED VARIABLES
 
