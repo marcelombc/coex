@@ -1,18 +1,14 @@
-/* jshint strict:false */
-
 self.importScripts('VBox.js');
 
 function imageDataToRgbData(imageData) {
-    var rgbColors = [],
-        rgbColor,
-        i,
-        length;
+    const rgbColors = [];
+    let rgbColor;
 
-    for (i = 0, length = imageData.length; i < length; i += 4) {
+    for (let i = 0, length = imageData.length; i < length; i += 4) {
         rgbColor = [
             imageData[i],
             imageData[i + 1],
-            imageData[i + 2]
+            imageData[i + 2],
         ];
 
         rgbColors.push(rgbColor);
@@ -22,14 +18,12 @@ function imageDataToRgbData(imageData) {
 }
 
 function getPalette(maxPaletteColors, vBoxes) {
-    var values = [],
-        colors = [],
-        i,
-        length,
-        vbox,
-        splitedData,
-        j,
-        splitedDataLength;
+    const values = [];
+    const colors = [];
+    let i;
+    let length;
+    let vbox;
+    let splitedData;
 
     for (i = 0; i < maxPaletteColors; i += 1) {
         // Get the first vbox.
@@ -37,7 +31,7 @@ function getPalette(maxPaletteColors, vBoxes) {
 
         // Split the vbox data and create new one.
         splitedData = vbox.split();
-        for (j = 0, splitedDataLength = splitedData.length; j < splitedDataLength; j += 1) {
+        for (let j = 0, splitedDataLength = splitedData.length; j < splitedDataLength; j += 1) {
             vBoxes.push(new self.coex.VBox(splitedData[j]));
         }
 
@@ -46,7 +40,7 @@ function getPalette(maxPaletteColors, vBoxes) {
     }
 
     // Sort values from most dominant color to least dominant color.
-    vBoxes.sort(function (vbox1, vbox2) {
+    vBoxes.sort((vbox1, vbox2) => {
         return vbox2.size() - vbox1.size();
     });
 
@@ -60,7 +54,7 @@ function getPalette(maxPaletteColors, vBoxes) {
         colors.push({
             red: values[i][0],
             green: values[i][1],
-            blue: values[i][2]
+            blue: values[i][2],
         });
     }
 
@@ -68,19 +62,17 @@ function getPalette(maxPaletteColors, vBoxes) {
 }
 
 self.onmessage = function (e) {
-    var imageData = e.data.imageData,
-        maxPaletteColors = e.data.maxPaletteColors,
-        instanceId = e.data.instanceId,
-        vBoxes = [],
-        rgbData,
-        palette;
+    const imageData = e.data.imageData;
+    const maxPaletteColors = e.data.maxPaletteColors;
+    const instanceId = e.data.instanceId;
+    const vBoxes = [];
+    const rgbData = imageDataToRgbData(imageData);
 
-    rgbData = imageDataToRgbData(imageData);
     vBoxes.push(new self.coex.VBox(rgbData));
-    palette = getPalette(maxPaletteColors, vBoxes);
+    const palette = getPalette(maxPaletteColors, vBoxes);
 
     self.postMessage({
-        instanceId: instanceId,
-        palette: palette
+        instanceId,
+        palette,
     });
 };

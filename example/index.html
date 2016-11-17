@@ -39,20 +39,49 @@
                 margin-right: 20px;
             }
         </style>
-        <!-- data-main attribute tells require.js to load
-             scripts/main.js after require.js loads. -->
-        <script src="../bower_components/requirejs/require.js"></script>
     </head>
     <body>
-        <!--<h1>coex example</h1>-->
         <div class="color-palette"></div>
         <div class="grid">
             <div class="thumb thumb-1" data-url="images/1.jpg"></div>
             <div class="thumb thumb-2" data-url="images/2.jpg"></div>
             <div class="thumb thumb-3" data-url="images/3.jpg"></div>
         </div>
+        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../lib/coex.js"></script>
         <script>
-            require(['./example.js?' + (new Date()).getTime()]);
+            const Coex = coex;
+
+            // Coex.workerUrl = '../src/worker.js?rand=' + Math.random();
+
+            var url,
+                coex,
+                contrastColor;
+
+            $('.grid .thumb').on('click', function (e) {
+                url = $(e.target).attr('data-url');
+                if (url) {
+                    coex = new Coex(url, 8);
+                    coex.get(function (err, colors) {
+                        if (err) {
+                            throw err;
+                        }
+
+                        $('.color-palette').find('.color').remove();
+                        for (var i = 0, length = colors.length; i < length; i += 1) {
+                            $('.color-palette').append('<div class="color" style="background-color: rgb(' + colors[i].red + ',' + colors[i].green + ',' + colors[i].blue + ')"></div>');
+                        }
+
+                        $('body').css('background', 'rgb(' + colors[0].red + ',' + colors[0].green + ',' + colors[0].blue + ')');
+
+                        contrastColor = coex.getContrastColor(colors);
+
+                        $('.color-palette').css('background', 'rgb(' + contrastColor.red + ',' + contrastColor.green + ',' + contrastColor.blue + ')');
+
+                        coex.destroy();
+                    });
+                }
+            });
         </script>
     </body>
 </html>

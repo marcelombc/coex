@@ -1,0 +1,23 @@
+{
+    "root": true,
+    "extends": [
+        "@satazor/eslint-config/es6",
+        "@satazor/eslint-config/addons/node",
+        "@satazor/eslint-config/addons/es6-modules"
+    ],
+    "globals": {
+        "document": false,
+        "escape": false,
+        "navigator": false,
+        "unescape": false,
+        "window": false,
+        "describe": true,
+        "before": true,
+        "it": true,
+        "expect": true,
+        "sinon": true,
+        "Image": true,
+        "Worker": true,
+        "self": true
+    }
+}
